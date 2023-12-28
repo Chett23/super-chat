@@ -32,7 +32,6 @@ const firestore = getFirestore(firebase);
 
 function App() {
 	const [user] = useAuthState(auth);
-	console.log(user);
 
 	return (
 		<div className="App">
@@ -54,8 +53,17 @@ function SignIn() {
 	return <button onClick={signInWithGoogle}>Sign In With Google</button>;
 }
 function SignOut() {
+	const handleSignout = () =>
+		auth.signOut().then(
+			function () {
+				console.log("Signed Out");
+			},
+			function (error) {
+				console.error("Sign Out Error", error);
+			}
+		);
 	return (
-		auth?.currentUser && <button onClick={auth?.signOut}>Sign Out</button>
+		auth.currentUser && <button onClick={handleSignout}>Sign Out</button>
 	);
 }
 
